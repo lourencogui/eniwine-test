@@ -2,6 +2,9 @@ export const Types = {
   CALL_AUTH_REQUEST: 'login/CALL_AUTH_REQUEST',
   CALL_AUTH_REQUEST_SUCCESS: 'login/CALL_AUTH_REQUEST_SUCCESS',
   CALL_AUTH_REQUEST_FAILURE: 'login/CALL_AUTH_REQUEST_FAILURE',
+  CALL_SIGNUP_REQUEST: 'login/CALL_SIGNUP_REQUEST',
+  CALL_SIGNUP_REQUEST_SUCCESS: 'login/CALL_SIGNUP_REQUEST_SUCCESS',
+  CALL_SIGNUP_REQUEST_FAILURE: 'login/CALL_SIGNUP_REQUEST_FAILURE',
   CLEAR: 'login/CLEAR',
 };
 
@@ -28,9 +31,27 @@ export default function login(state = INITIAL_STATE, action) {
         ...state,
         loading: false,
         token: action.payload.token,
+        error: '',
         userLogged: true,
       };
     case Types.CALL_AUTH_REQUEST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+      };
+    case Types.CALL_SIGNUP_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case Types.CALL_SIGNUP_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+      };
+    case Types.CALL_SIGNUP_REQUEST_FAILURE:
       return {
         ...state,
         loading: false,
@@ -66,6 +87,23 @@ export const Creators = {
   }),
   callAuthRequestFailure: error => ({
     type: Types.CALL_AUTH_REQUEST_FAILURE,
+    payload: {
+      error,
+    },
+  }),
+  callSignupRequest: ({ email, password, username }) => ({
+    type: Types.CALL_SIGNUP_REQUEST,
+    payload: {
+      email,
+      password,
+      username,
+    },
+  }),
+  callSignupRequestSuccess: () => ({
+    type: Types.CALL_SIGNUP_REQUEST_SUCCESS,
+  }),
+  callSignupRequestFailure: error => ({
+    type: Types.CALL_SIGNUP_REQUEST_FAILURE,
     payload: {
       error,
     },

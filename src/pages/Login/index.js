@@ -28,6 +28,10 @@ class Login extends Component {
     this.props.navigation.navigate({ routeName: 'Main' });
   };
 
+  navigateSignUp = () => {
+    this.props.navigation.navigate({ routeName: 'Signup' });
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -70,6 +74,14 @@ class Login extends Component {
           ) : (
             <Text style={styles.loginTextButton}>Entrar</Text>
           )}
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.textButton}
+          onPress={() => {
+            this.navigateSignUp();
+          }}
+        >
+          <Text accessibilityRole="link" style={styles.textButtonLink}>Criar conta</Text>
         </TouchableOpacity>
       </View>
     );

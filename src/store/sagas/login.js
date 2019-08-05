@@ -23,3 +23,26 @@ export function* callAuthRequest(action) {
     yield put(LoginActions.callAuthRequestFailure('Erro ao autenticar o usuário'));
   }
 }
+
+
+export function* callSignupRequest(action) {
+  try {
+    const { email, password, username } = action.payload;
+    if (email && password && username) {
+      const { data } = yield call(
+        eniWineApi.post,
+        '/users',
+        JSON.stringify({ email, password, username }),
+        {
+          headers: {
+            'Content-type': 'application/json',
+          },
+        },
+      );
+      console.tron.log(data);
+      yield put(LoginActions.callSignupRequestSuccess());
+    }
+  } catch (error) {
+    yield put(LoginActions.callSignupRequestFailure('Erro ao criar o usuário'));
+  }
+}
