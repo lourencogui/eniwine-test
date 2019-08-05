@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { general } from '~/styles';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    ...general.container,
     borderRadius: 4,
-    // padding: 5,
     margin: 5,
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -33,10 +33,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#ba0075',
-    // backgroundColor: '#b50072',
   },
   buttonText: {
-    color: '#FFF',
+    ...general.textButton,
   },
 });
 

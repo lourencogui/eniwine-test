@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-// import { general } from '/styles';
+import { general } from '~/styles';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    ...general.container,
     backgroundColor: '#94025e',
     // ...general.container,
     flexDirection: 'column',
@@ -13,44 +13,28 @@ const styles = StyleSheet.create({
   },
 
   emailInput: {
-    // ...general.textInput,
-    marginVertical: 5,
-    height: 45,
+    ...general.textInput,
     backgroundColor: '#FFF',
-    borderRadius: 4,
-    paddingHorizontal: 10,
   },
 
   passwordContainer: {
-    // ...general.container,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
 
   passwordInput: {
+    ...general.textInput,
     backgroundColor: '#FFF',
-    borderRadius: 4,
     flexGrow: 1,
-    height: 45,
-    marginVertical: 5,
-    paddingHorizontal: 10,
-    // ...general.textInput,
   },
 
   loginButton: {
-    backgroundColor: '#ba0075',
-    height: 45,
-    color: '#FFF',
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 5,
+    ...general.button,
   },
 
   loginTextButton: {
-    color: '#FFF',
-    elevation: 2,
+    ...general.textButton,
   },
   icon: {
     marginHorizontal: 5,

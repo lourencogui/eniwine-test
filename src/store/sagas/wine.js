@@ -5,7 +5,6 @@ import { eniWineApi } from '~/services/eniWineApi';
 
 export function* getWines() {
   try {
-    // const response = yield call(eniWineApi.get, '/5d4257583200005900763f7c');
     const response = yield call(eniWineApi.get, '/wines', {
       headers: {
         Authorization: `bearer ${store.getState().login.token}`,
