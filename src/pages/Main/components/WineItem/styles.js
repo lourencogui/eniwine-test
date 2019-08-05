@@ -27,6 +27,12 @@ const styles = StyleSheet.create({
   details: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  detailsText: {
+    color: '#ba0075',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   controls: {
     paddingVertical: 12,

@@ -18,9 +18,7 @@ const WineItem = ({ wine, onPress }) => (
         />
       </View>
       <View style={styles.details}>
-        <Text>{wine.size}</Text>
-        <Text> | </Text>
-        <Text>{wine.type}</Text>
+        <Text style={styles.detailsText}>{wine.name}</Text>
       </View>
     </View>
     <View style={styles.controls}>
