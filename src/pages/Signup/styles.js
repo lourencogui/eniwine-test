@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
 
+  errorText: {
+    color: '#FFF',
+    textAlign: 'center',
+    marginVertical: 5,
+  },
+
   signupButton: {
     ...general.button,
   },

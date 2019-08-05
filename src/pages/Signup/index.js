@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import { Creators as LoginActions } from '~/store/ducks/login';
 import styles from './styles';
 
@@ -11,6 +12,17 @@ class Signup extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null,
   });
+
+  static propTypes = {
+    LoginActions: PropTypes.shape().isRequired,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+    login: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      errorSignup: PropTypes.string.isRequired,
+    }).isRequired,
+  };
 
   state = {
     email: '',
@@ -57,6 +69,7 @@ class Signup extends Component {
           returnKeyType="go"
           value={this.state.password}
         />
+        {!!this.props.login.errorSignup && <Text style={styles.errorText}>{this.props.login.errorSignup}</Text>}
         <TouchableOpacity
           style={styles.signupButton}
           onPress={() => {

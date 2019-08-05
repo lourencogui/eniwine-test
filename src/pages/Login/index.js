@@ -5,6 +5,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PropTypes from 'prop-types';
 import { Creators as LoginActions } from '~/store/ducks/login';
 import styles from './styles';
 
@@ -13,15 +14,22 @@ class Login extends Component {
     header: null,
   });
 
+  static propTypes = {
+    LoginActions: PropTypes.shape().isRequired,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+    login: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      error: PropTypes.string.isRequired,
+    }).isRequired,
+  };
+
   state = {
     email: '',
     password: '',
     showPassword: true,
   };
-
-  componentWillMount() {
-    this.props.LoginActions.clear();
-  }
 
   login = () => {
     this.props.LoginActions.callAuthRequest({
@@ -65,6 +73,7 @@ class Login extends Component {
             <Icon name="eye-outline" size={22} color="#FFF" />
           </TouchableOpacity>
         </View>
+        {!!this.props.login.error && <Text style={styles.errorText}>{this.props.login.error}</Text>}
         <TouchableOpacity
           style={styles.loginButton}
           onPress={() => {

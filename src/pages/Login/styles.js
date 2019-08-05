@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
 
+  errorText: {
+    color: '#FFF',
+    textAlign: 'center',
+    marginVertical: 5,
+  },
+
   loginButton: {
     ...general.button,
   },
@@ -41,7 +47,6 @@ const styles = StyleSheet.create({
     ...general.button,
     backgroundColor: 'transparent',
   },
-
 
   textButtonLink: {
     ...general.textButton,

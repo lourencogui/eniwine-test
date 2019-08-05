@@ -14,6 +14,8 @@ export const INITIAL_STATE = {
     email: '',
     password: '',
   },
+  error: '',
+  errorSignup: '',
   loading: false,
   token: '',
   userLogged: false,
@@ -25,6 +27,7 @@ export default function login(state = INITIAL_STATE, action) {
       return {
         ...state,
         loading: true,
+        error: '',
       };
     case Types.CALL_AUTH_REQUEST_SUCCESS:
       return {
@@ -44,27 +47,31 @@ export default function login(state = INITIAL_STATE, action) {
       return {
         ...state,
         loading: true,
+        errorSignup: '',
       };
     case Types.CALL_SIGNUP_REQUEST_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: '',
+        errorSignup: '',
       };
     case Types.CALL_SIGNUP_REQUEST_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        errorSignup: action.payload.errorSignup,
       };
     case Types.CLEAR:
       return {
-        loading: false,
         user: {
           id: 0,
           email: '',
           password: '',
         },
+        error: '',
+        errorSignup: '',
+        loading: false,
+        token: '',
       };
     default:
       return state;
@@ -106,10 +113,10 @@ export const Creators = {
   callSignupRequestSuccess: () => ({
     type: Types.CALL_SIGNUP_REQUEST_SUCCESS,
   }),
-  callSignupRequestFailure: error => ({
+  callSignupRequestFailure: errorSignup => ({
     type: Types.CALL_SIGNUP_REQUEST_FAILURE,
     payload: {
-      error,
+      errorSignup,
     },
   }),
   clear: () => ({

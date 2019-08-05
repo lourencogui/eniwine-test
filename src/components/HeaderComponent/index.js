@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Creators as WineActions } from '~/store/ducks/wine';
 import styles from './styles';
 
 class HeaderComponent extends Component {
+  state = {};
+
+
+  static propTypes = {
+    count: PropTypes.number.isRequired,
+    onPress: PropTypes.func.isRequired,
+  };
+
   render() {
     return (
       <View style={styles.container}>

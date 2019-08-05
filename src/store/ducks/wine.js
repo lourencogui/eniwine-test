@@ -16,7 +16,7 @@ export const INITIAL_STATE = {
   wines: [],
   cart: [],
   loading: false,
-  error: '',
+  message: '',
   quantityOnCart: 0,
 };
 
@@ -37,7 +37,6 @@ export default function wine(state = INITIAL_STATE, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
       };
     case Types.ADD_WINE:
       return {
@@ -61,12 +60,14 @@ export default function wine(state = INITIAL_STATE, action) {
         ...state,
         loading: false,
         cart: [],
+        quantityOnCart: 0,
+        message: action.payload.message,
       };
     case Types.CHECKOUT_ORDER_REQUEST_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        message: action.payload.message,
       };
     case Types.CLEAR:
       return {
@@ -86,9 +87,8 @@ export const Creators = {
     type: Types.GET_WINES_REQUEST_SUCCESS,
     payload: { items },
   }),
-  getWinesFailure: error => ({
+  getWinesFailure: () => ({
     type: Types.GET_WINES_REQUEST_FAILURE,
-    payload: { error },
   }),
   addWine: item => ({
     type: Types.ADD_WINE,
@@ -106,14 +106,17 @@ export const Creators = {
     type: Types.CHECKOUT_ORDER_REQUEST,
   }),
 
-  checkoutOrderSuccess: () => ({
+  checkoutOrderSuccess: message => ({
     type: Types.CHECKOUT_ORDER_REQUEST_SUCCESS,
+    payload: {
+      message,
+    },
   }),
 
-  checkoutOrderFailure: error => ({
+  checkoutOrderFailure: message => ({
     type: Types.CHECKOUT_ORDER_REQUEST_FAILURE,
     payload: {
-      error,
+      message,
     },
   }),
   clear: () => ({

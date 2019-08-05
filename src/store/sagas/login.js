@@ -5,7 +5,6 @@ import { eniWineApi } from '~/services/eniWineApi';
 
 function* navigate(navigation, routeName) {
   try {
-    console.tron.log({ navigation, routeName });
     const navigateAction = NavigationActions.navigate({
       routeName,
       action: NavigationActions.navigate({ routeName }),
@@ -31,13 +30,11 @@ export function* callAuthRequest(action) {
           },
         },
       );
-      console.tron.log(data);
-
       yield put(LoginActions.callAuthRequestSuccess(data.token));
       yield call(navigate, navigation, 'Main');
     }
   } catch (error) {
-    yield put(LoginActions.callAuthRequestFailure('Erro ao autenticar o usuário'));
+    yield put(LoginActions.callAuthRequestFailure('Usuário ou senha inválidos'));
   }
 }
 
@@ -57,7 +54,6 @@ export function* callSignupRequest(action) {
           },
         },
       );
-      console.tron.log(data);
       yield put(LoginActions.callSignupRequestSuccess());
       yield call(navigate, navigation, 'Login');
     }
