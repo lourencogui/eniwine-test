@@ -1,0 +1,37 @@
+import { put, call } from 'redux-saga/effects';
+import { Creators as WineActions } from '../ducks/wine';
+import { store } from '~/store';
+import { eniWineApi } from '~/services/eniWineApi';
+
+export function* getWines() {
+  try {
+    // const response = yield call(eniWineApi.get, '/5d4257583200005900763f7c');
+    const response = yield call(eniWineApi.get, '/wines', {
+      headers: {
+        Authorization: `bearer ${store.getState().login.token}`,
+      },
+    });
+    yield put(WineActions.getWinesSuccess(response.data));
+  } catch (error) {
+    console.tron.log(`${error}`);
+    yield put(WineActions.getWinesFailure('Erro ao buscar os vinhos'));
+  }
+}
+
+export function* checkoutOrder() {
+  try {
+    const { cart } = store.getState().wine;
+    if (cart.length > 0) {
+      const response = yield call(eniWineApi.post, '/sales', JSON.stringify({ wines: cart }), {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${store.getState().login.token}`,
+        },
+      });
+      yield put(WineActions.checkoutOrderSuccess());
+    }
+  } catch (error) {
+    console.tron.log(error);
+    yield put(WineActions.checkoutOrderFailure('Erro ao finalizar o seu pedido'));
+  }
+}
