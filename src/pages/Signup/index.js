@@ -19,8 +19,10 @@ class Signup extends Component {
   };
 
   signup = () => {
-    this.props.LoginActions.callSignupRequest(this.state);
-    // this.props.navigation.navigate({ routeName: 'Main' });
+    this.props.LoginActions.callSignupRequest({
+      ...this.state,
+      navigation: { ...this.props.navigation },
+    });
   };
 
   render() {

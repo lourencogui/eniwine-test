@@ -72,11 +72,12 @@ export default function login(state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-  callAuthRequest: ({ email, password }) => ({
+  callAuthRequest: ({ email, password, navigation }) => ({
     type: Types.CALL_AUTH_REQUEST,
     payload: {
       email,
       password,
+      navigation,
     },
   }),
   callAuthRequestSuccess: token => ({
@@ -91,12 +92,15 @@ export const Creators = {
       error,
     },
   }),
-  callSignupRequest: ({ email, password, username }) => ({
+  callSignupRequest: ({
+    email, password, username, navigation,
+  }) => ({
     type: Types.CALL_SIGNUP_REQUEST,
     payload: {
       email,
       password,
       username,
+      navigation,
     },
   }),
   callSignupRequestSuccess: () => ({

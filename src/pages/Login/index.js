@@ -24,8 +24,10 @@ class Login extends Component {
   }
 
   login = () => {
-    this.props.LoginActions.callAuthRequest(this.state);
-    this.props.navigation.navigate({ routeName: 'Main' });
+    this.props.LoginActions.callAuthRequest({
+      ...this.state,
+      navigation: { ...this.props.navigation },
+    });
   };
 
   navigateSignUp = () => {
@@ -81,7 +83,9 @@ class Login extends Component {
             this.navigateSignUp();
           }}
         >
-          <Text accessibilityRole="link" style={styles.textButtonLink}>Criar conta</Text>
+          <Text accessibilityRole="link" style={styles.textButtonLink}>
+            Criar conta
+          </Text>
         </TouchableOpacity>
       </View>
     );
