@@ -100,7 +100,7 @@ export const Creators = {
     },
   }),
   callSignupRequest: ({
-    email, password, username, navigation,
+    email, password, username, navigation, passwordConfirmation,
   }) => ({
     type: Types.CALL_SIGNUP_REQUEST,
     payload: {
@@ -108,6 +108,7 @@ export const Creators = {
       password,
       username,
       navigation,
+      passwordConfirmation,
     },
   }),
   callSignupRequestSuccess: () => ({

@@ -22,13 +22,8 @@ export function* callAuthRequest(action) {
     if (email && password) {
       const { data } = yield call(
         eniWineApi.post,
-        '/sessions',
-        JSON.stringify({ email, password }),
-        {
-          headers: {
-            'Content-type': 'application/json',
-          },
-        },
+        'sessions',
+        { email, password },
       );
       yield put(LoginActions.callAuthRequestSuccess(data.token));
       yield call(navigate, navigation, 'Main');
@@ -41,13 +36,15 @@ export function* callAuthRequest(action) {
 export function* callSignupRequest(action) {
   try {
     const {
-      email, password, username, navigation,
+      email, password, passwordConfirmation, username, navigation,
     } = action.payload;
-    if (email && password && username) {
+    if (email && password && username && passwordConfirmation) {
       const { data } = yield call(
         eniWineApi.post,
-        '/users',
-        JSON.stringify({ email, password, username }),
+        'users',
+        {
+          email, password, username, password_confirmation: passwordConfirmation,
+        },
         {
           headers: {
             'Content-type': 'application/json',
@@ -56,6 +53,8 @@ export function* callSignupRequest(action) {
       );
       yield put(LoginActions.callSignupRequestSuccess());
       yield call(navigate, navigation, 'Login');
+    } else {
+      yield put(LoginActions.callSignupRequestFailure('Verifique seus dados'));
     }
   } catch (error) {
     yield put(LoginActions.callSignupRequestFailure('Erro ao criar o usuário'));

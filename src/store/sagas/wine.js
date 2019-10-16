@@ -5,7 +5,7 @@ import { eniWineApi } from '~/services/eniWineApi';
 
 export function* getWines() {
   try {
-    const response = yield call(eniWineApi.get, '/wines', {
+    const response = yield call(eniWineApi.get, 'wines', {
       headers: {
         Authorization: `bearer ${store.getState().login.token}`,
       },
@@ -21,7 +21,7 @@ export function* checkoutOrder() {
   try {
     const { cart } = store.getState().wine;
     if (cart.length > 0) {
-      yield call(eniWineApi.post, '/sales', JSON.stringify({ wines: cart }), {
+      yield call(eniWineApi.post, 'sales', JSON.stringify({ wines: cart }), {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `bearer ${store.getState().login.token}`,

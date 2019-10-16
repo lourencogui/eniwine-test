@@ -28,6 +28,7 @@ class Signup extends Component {
     email: '',
     username: '',
     password: '',
+    passwordConfirmation: '',
   };
 
   signup = () => {
@@ -68,6 +69,15 @@ class Signup extends Component {
           placeholder="Informe sua senha"
           returnKeyType="go"
           value={this.state.password}
+        />
+        <TextInput
+          style={styles.textInput}
+          autoCorrect={false}
+          autoCapitalize="none"
+          onChangeText={passwordConfirmation => this.setState({ passwordConfirmation })}
+          placeholder="Confirmação da senha"
+          returnKeyType="go"
+          value={this.state.passwordConfirmation}
         />
         {!!this.props.login.errorSignup && <Text style={styles.errorText}>{this.props.login.errorSignup}</Text>}
         <TouchableOpacity
