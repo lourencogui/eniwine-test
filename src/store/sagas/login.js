@@ -20,12 +20,17 @@ export function* callAuthRequest(action) {
   try {
     const { email, password, navigation } = action.payload;
     if (email && password) {
-      const { data } = yield call(
+      const response = yield call(
         eniWineApi.post,
         'sessions',
         { email, password },
       );
-      yield put(LoginActions.callAuthRequestSuccess(data.token));
+      const { token, admin } = response.data;
+      yield put(LoginActions.callAuthRequestSuccess(token));
+      if (admin) {
+        yield call(navigate, navigation, 'CreateProduct');
+        return;
+      }
       yield call(navigate, navigation, 'Main');
     }
   } catch (error) {

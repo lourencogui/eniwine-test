@@ -1,0 +1,26 @@
+import { StyleSheet } from 'react-native';
+import { general } from '~/styles';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#94025e',
+    padding: 10,
+  },
+  input: {
+    ...general.textInput,
+    color: '#FFF',
+    backgroundColor: '#8b0158',
+  },
+  button: {
+    ...general.button,
+  },
+  textButton: {
+    ...general.textButton,
+  },
+  picker: {
+    color: '#FFF',
+  },
+});
+
+export default styles;

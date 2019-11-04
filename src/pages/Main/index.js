@@ -50,11 +50,11 @@ class Main extends Component {
           <ActivityIndicator color="#FFF" />
         ) : (
           <FlatList
-            data={this.props.wine.wines}
-            keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => <WineItem wine={item} onPress={this.addItem} />}
-            numColumns={2}
-          />
+              data={this.props.wine.wines}
+              keyExtractor={item => String(item.id)}
+              renderItem={({ item }) => <WineItem wine={item} onPress={this.addItem} />}
+              numColumns={2}
+            />
         )}
       </View>
     );
