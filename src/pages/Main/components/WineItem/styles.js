@@ -21,8 +21,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   avatarImage: {
-    height: 110,
-    width: 50,
+    height: 100,
+    width: 100,
+    borderRadius: 50,
   },
   details: {
     flexDirection: 'row',

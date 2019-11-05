@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ImagePicker from 'react-native-image-picker';
 import {
-  View, Text, TextInput, TouchableOpacity, Picker, Image,
+  View, Text, TextInput, TouchableOpacity, Picker, Image, ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { store } from '~/store';
@@ -21,6 +21,7 @@ class CreateProduct extends Component {
       backgroundColor: '#ba0075',
       height: 80,
     },
+    headerLeft: null,
     headerTintColor: '#fff',
   });
 
@@ -33,6 +34,7 @@ class CreateProduct extends Component {
     available: 0,
     types: [],
     avatarSource: null,
+    loading: false,
   };
 
 
@@ -43,6 +45,7 @@ class CreateProduct extends Component {
   renderImagePicker = () => {
     const options = {
       title: 'Select Avatar',
+      quality: 0.2,
       storageOptions: {
         skipBackup: true,
         path: 'images',
@@ -60,6 +63,7 @@ class CreateProduct extends Component {
         console.tron.log('User tapped custom button: ', response.customButton);
       } else {
         const source = { uri: response.uri };
+        console.tron.log(source);
 
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -90,6 +94,7 @@ class CreateProduct extends Component {
   }
 
   create = async () => {
+    this.setState({ loading: true });
     try {
       const product = {
         name: this.state.name,
@@ -103,8 +108,9 @@ class CreateProduct extends Component {
       const form = new FormData();
       form.append('product', JSON.stringify(product));
       form.append('avatar', {
-        uri: this.state.avatarSource,
+        uri: this.state.avatarSource.uri,
         type: 'image/jpg',
+        name: 'avatar.jpg',
       });
 
       const response = await eniWineApi.post('products', form, {
@@ -112,6 +118,18 @@ class CreateProduct extends Component {
           Authorization: `bearer ${store.getState().login.token}`,
           'Content-Type': 'multipart/form-data',
         },
+      });
+      this.setState({ loading: false });
+      this.setState({
+        name: '',
+        type: '',
+        description: '',
+        size: 0,
+        price: 0,
+        available: 0,
+        types: [],
+        avatarSource: null,
+        loading: false,
       });
       console.tron.log(response.data);
     } catch (error) {
@@ -199,7 +217,10 @@ class CreateProduct extends Component {
           }
         </Picker>
         <TouchableOpacity style={styles.button} onPress={() => this.create()}>
-          <Text style={styles.textButton}>Cadastrar</Text>
+          {this.state.loading
+            ? <ActivityIndicator size="small" color="#FFF" />
+            : <Text style={styles.textButton}>Cadastrar</Text>
+          }
         </TouchableOpacity>
       </View>
     );

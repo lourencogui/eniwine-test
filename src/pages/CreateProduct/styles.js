@@ -8,13 +8,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   avatar: {
-    height: 65,
-    width: 65,
+    height: 100,
+    width: 100,
     borderRadius: 50,
     alignSelf: 'center',
     backgroundColor: '#FFF',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 10,
   },
   img: {
     height: 65,

@@ -12,16 +12,21 @@ const WineItem = ({ wine, onAdd, onRemove }) => (
     <View style={styles.avatar}>
       <Image
         style={styles.avatarImage}
+        resizeMode="cover"
         source={{
-          uri: 'https://cdn.shopify.com/s/files/1/0588/4573/products/S5.jpg?v=1557447573',
+          uri: wine.avatar ? wine.avatar : 'https://cdn.shopify.com/s/files/1/0588/4573/products/S5.jpg?v=1557447573',
         }}
       />
     </View>
     <View style={styles.details}>
       <Text style={styles.name}>{wine.name}</Text>
       <View style={styles.detailsItem}>
-        <Text style={styles.type}>{`${wine.type} - `}</Text>
-        <Text style={styles.size}>{wine.size}</Text>
+        {
+          wine.description
+            ? <Text style={styles.type}>{`${wine.description} - `}</Text>
+            : <Text style={styles.type}>Sem descrição - </Text>
+        }
+        <Text style={styles.size}>{`${wine.size}ml`}</Text>
       </View>
       <View style={styles.price}>
         <Text style={styles.totalPrice}>R$</Text>

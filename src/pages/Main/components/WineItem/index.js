@@ -13,7 +13,7 @@ const WineItem = ({ wine, onPress }) => (
         <Image
           style={styles.avatarImage}
           source={{
-            uri: 'https://cdn.shopify.com/s/files/1/0588/4573/products/S5.jpg?v=1557447573',
+            uri: wine.avatar ? wine.avatar : 'https://cdn.shopify.com/s/files/1/0588/4573/products/S5.jpg?v=1557447573',
           }}
         />
       </View>
