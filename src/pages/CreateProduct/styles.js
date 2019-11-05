@@ -7,6 +7,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#94025e',
     padding: 10,
   },
+  avatar: {
+    height: 65,
+    width: 65,
+    borderRadius: 50,
+    alignSelf: 'center',
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  img: {
+    height: 65,
+    width: 65,
+    borderRadius: 50,
+  },
+  icon: {
+    alignSelf: 'center',
+  },
   input: {
     ...general.textInput,
     color: '#FFF',

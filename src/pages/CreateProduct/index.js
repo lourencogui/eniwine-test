@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import ImagePicker from 'react-native-image-picker';
 import {
-  View, Text, TextInput, TouchableOpacity, Picker,
+  View, Text, TextInput, TouchableOpacity, Picker, Image,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { store } from '~/store';
 import { eniWineApi } from '~/services/eniWineApi';
 
@@ -30,11 +32,43 @@ class CreateProduct extends Component {
     price: 0,
     available: 0,
     types: [],
+    avatarSource: null,
   };
 
 
   componentDidMount() {
     this.getProductType();
+  }
+
+  renderImagePicker = () => {
+    const options = {
+      title: 'Select Avatar',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      console.tron.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.tron.log('User cancelled image picker');
+      } else if (response.error) {
+        console.tron.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.tron.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          avatarSource: source,
+        });
+      }
+    });
   }
 
   getProductType = async () => {
@@ -68,6 +102,11 @@ class CreateProduct extends Component {
 
       const form = new FormData();
       form.append('product', JSON.stringify(product));
+      form.append('avatar', {
+        uri: this.state.avatarSource,
+        type: 'image/jpg',
+      });
+
       const response = await eniWineApi.post('products', form, {
         headers: {
           Authorization: `bearer ${store.getState().login.token}`,
@@ -83,6 +122,13 @@ class CreateProduct extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <TouchableOpacity style={styles.avatar} onPress={() => this.renderImagePicker()}>
+          {
+            this.state.avatarSource
+              ? <Image source={this.state.avatarSource} style={styles.img} />
+              : <Icon name="camera" color="#94025e" size={21} style={styles.icon} />
+          }
+        </TouchableOpacity>
         <TextInput
           style={styles.input}
           placeholder="Informe o nome do produto"
