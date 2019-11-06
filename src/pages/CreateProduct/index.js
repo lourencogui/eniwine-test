@@ -27,20 +27,14 @@ class CreateProduct extends Component {
 
   state = {
     name: '',
-    type: '',
     description: '',
     size: 0,
     price: 0,
     available: 0,
-    types: [],
     avatarSource: null,
     loading: false,
   };
 
-
-  componentDidMount() {
-    this.getProductType();
-  }
 
   renderImagePicker = () => {
     const options = {
@@ -75,31 +69,12 @@ class CreateProduct extends Component {
     });
   }
 
-  getProductType = async () => {
-    try {
-      const response = await eniWineApi.get('productTypes', {
-        headers: {
-          Authorization: `bearer ${store.getState().login.token}`,
-        },
-      });
-      this.setState({ types: response.data });
-    } catch (error) {
-      console.tron.log(`${error}`);
-    }
-  }
-
-  getTypeId = (selectedType) => {
-    const type = this.state.types.find(item => item.name === this.state.type);
-    return type.id;
-  }
-
   create = async () => {
     this.setState({ loading: true });
     try {
       const product = {
         name: this.state.name,
         description: this.state.description,
-        product_type_id: this.getTypeId(this.state.type),
         size: parseInt(this.state.size, 10),
         price: parseFloat(this.state.price),
         available: parseInt(this.state.available, 10),
@@ -122,12 +97,10 @@ class CreateProduct extends Component {
       this.setState({ loading: false });
       this.setState({
         name: '',
-        type: '',
         description: '',
         size: 0,
         price: 0,
         available: 0,
-        types: [],
         avatarSource: null,
         loading: false,
       });
@@ -202,20 +175,6 @@ class CreateProduct extends Component {
           onChangeText={available => this.setState({ available })}
           returnKeyType="next"
         />
-        <Picker
-          selectedValue={this.state.type}
-          style={styles.picker}
-          onValueChange={(type, index) => {
-            this.setState({ type });
-            console.tron.log(this.state.type);
-          }}
-        >
-          {
-            this.state.types && this.state.types.map(item => (
-              <Picker.Item key={item.id} label={item.name} value={item.name} />
-            ))
-          }
-        </Picker>
         <TouchableOpacity style={styles.button} onPress={() => this.create()}>
           {this.state.loading
             ? <ActivityIndicator size="small" color="#FFF" />

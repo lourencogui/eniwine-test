@@ -7,6 +7,7 @@ export function insert(arr, itemToAdd) {
       return item;
     });
   }
+  console.tron.log('primeiro');
   return [...arr, Object.assign({ quantity: 1 }, itemToAdd)];
 }
 
@@ -30,5 +31,6 @@ export function countCart(arr) {
   arr.forEach(({ quantity }) => {
     count += quantity;
   });
+  console.tron.log(count);
   return count;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, FlatList, TouchableOpacity, Text, ActivityIndicator, ToastAndroid,
+  View, FlatList, TouchableOpacity, Text, ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -8,21 +8,6 @@ import PropTypes from 'prop-types';
 import { Creators as WineActions } from '~/store/ducks/wine';
 import WineItem from './components/WineItem';
 import styles from './styles';
-
-
-const Toast = ({ message }) => {
-  if (message) {
-    ToastAndroid.showWithGravityAndOffset(
-      message,
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-      25,
-      50,
-    );
-    return null;
-  }
-  return null;
-};
 
 class Cart extends Component {
   static navigationOptions = () => ({
@@ -90,7 +75,6 @@ class Cart extends Component {
           )}
         />
         {this.renderAppropriateComponent()}
-        <Toast message={this.props.wine.message} />
       </View>
     );
   }

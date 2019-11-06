@@ -42,13 +42,13 @@ export default function wine(state = INITIAL_STATE, action) {
       return {
         ...state,
         cart: insert(state.cart, action.payload.item),
-        quantityOnCart: countCart(state.cart),
+        quantityOnCart: state.quantityOnCart ? state.quantityOnCart + 1 : 1,
       };
     case Types.REMOVE_WINE:
       return {
         ...state,
         cart: remove(state.cart, action.payload.id),
-        quantityOnCart: countCart(state.cart),
+        quantityOnCart: state.quantityOnCart ? state.quantityOnCart - 1 : 0,
       };
     case Types.CHECKOUT_ORDER_REQUEST:
       return {

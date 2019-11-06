@@ -1,4 +1,5 @@
 import { put, call } from 'redux-saga/effects';
+import { Alert } from 'react-native';
 import { Creators as WineActions } from '../ducks/wine';
 import { store } from '~/store';
 import { eniWineApi } from '~/services/eniWineApi';
@@ -28,9 +29,11 @@ export function* checkoutOrder() {
         },
       });
       yield put(WineActions.checkoutOrderSuccess('Pedido finalizado com sucesso'));
+      Alert.alert('Pedido Finalizado', 'Sua compra foi efetuada com sucesso');
     }
   } catch (error) {
     console.tron.log(error);
     yield put(WineActions.checkoutOrderFailure('Erro ao finalizar o seu pedido'));
+    Alert.alert('Ops', 'Ocorreu um erro ao finalizar seu pedido, tente novamente');
   }
 }
