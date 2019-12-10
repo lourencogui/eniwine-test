@@ -26,11 +26,11 @@ class Login extends Component {
   };
 
   state = {
-    email: 'giovani.mantovani@agrotools.com.br',
-    password: '1',
+    // email: 'giovani.mantovani@agrotools.com.br',
+    // password: '1',
     // email: 'g2@gmail.com',
     // password: '1',
-    showPassword: true,
+    showPassword: false,
   };
 
   login = () => {
